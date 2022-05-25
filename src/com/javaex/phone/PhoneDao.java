@@ -64,22 +64,11 @@ public class PhoneDao {
 	}
 
 	// --등록 메소드
-	public int personInsert(PersonVo pv) throws Exception {
+	public int personInsert(PersonVo pv) {
 		int count = -1;
-
-		// 0. import java.sql.*;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
+		getConnection();
 
 		try {
-			// 1. JDBC 드라이버 (Oracle) 로딩
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-
-			// 2. Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(url, "phonedb", "phonedb");
-
-			getConnection();
 
 			String query = "";
 			query += " insert into person";
@@ -103,18 +92,11 @@ public class PhoneDao {
 	}
 
 	// 업데이트
-	public int personUpdate(PersonVo pv) throws Exception {
+	public int personUpdate(PersonVo pv) {
 		int count = -1;
+		getConnection();
 
 		try {
-			// 1. JDBC 드라이버 (Oracle) 로딩
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-
-			// 2. Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(url, "phoneb", "phonedb");
-
-			getConnection();
 
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
@@ -149,10 +131,9 @@ public class PhoneDao {
 	// 수정
 	public int personUpdate1(PersonVo pv) {
 		int count = -1;
+		getConnection();
 
 		try {
-			getConnection();
-
 			String query = "";
 			query += " update person";
 			query += " set	  name = ?,";
@@ -179,19 +160,11 @@ public class PhoneDao {
 	}
 
 	// 삭제
-	public int personDelete(int personId) throws Exception {
+	public int personDelete(int personId) {
 		int count = -1;
+		getConnection();
 
 		try {
-			// 1. JDBC 드라이버 (Oracle) 로딩
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-
-			// 2. Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(url, "phonedb", "phonedb");
-
-			getConnection();
-
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
 			String query = "";
@@ -220,21 +193,9 @@ public class PhoneDao {
 	public List<PersonVo> phoneSelect() {
 
 		List<PersonVo> phoneList = new ArrayList<PersonVo>();
-
-		// 0. import java.sql.*;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		getConnection();
 
 		try {
-
-			// 1. JDBC 드라이버 (Oracle) 로딩
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-
-			// 2. Connection 얻어오기
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
-			conn = DriverManager.getConnection(url, "phonedb", "phonedb");
-
 			// 3. SQL문 준비 / 바인딩 / 실행
 			// SQL문 준비
 			String query = "";
@@ -251,7 +212,6 @@ public class PhoneDao {
 			rs = pstmt.executeQuery();
 
 			// 4.결과처리
-
 			// 반복문으로 Vo 만들기 List에 추가하기
 			while (rs.next()) {
 
@@ -266,8 +226,6 @@ public class PhoneDao {
 
 			}
 
-		} catch (ClassNotFoundException e) {
-			System.out.println("error: 드라이버 로딩 실패 - " + e);
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
