@@ -23,6 +23,8 @@ start with 1;
 select *
 from person;
 
+
+
 --데이터 추가
 insert into person
 values (seq_person_id.nextval, '이효리', '010-1111-1111', '02-1111-1111');
